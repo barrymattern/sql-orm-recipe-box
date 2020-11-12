@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(5,2)
       },
-      measurementUnitID: {
+      measurementUnitId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: "MeasurementUnits" }
@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(500)
       },
-      recipeID: {
+      recipeId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: "Recipes" }

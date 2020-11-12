@@ -2,9 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Ingredient = sequelize.define('Ingredient', {
     amount: DataTypes.INTEGER,
-    measurementUnitID: DataTypes.INTEGER,
+    measurementUnitId: DataTypes.INTEGER,
     foodStuff: DataTypes.STRING,
-    recipeID: DataTypes.INTEGER
+    recipeId: DataTypes.INTEGER
   }, {});
   Ingredient.associate = function(models) {
     // associations can be defined here
