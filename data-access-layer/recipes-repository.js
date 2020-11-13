@@ -61,16 +61,7 @@ async function getRecipeById(id) {
   //   ]
   // });
 
-  // Recipe.findByPk(id, {
-  //   include: [
-  //     Instruction,
-  //     Ingredient,
-  //     {
-  //       model: MeasurementUnit,
-  //       include: Recipe
-  //     }
-  //   ]
-  // });
+
 
   return await Recipe.findByPk(id, {
     include: [
@@ -107,6 +98,15 @@ async function deleteRecipe(id) {
   // saw in the video.
   //
   // Docs: https://sequelize.org/master/class/lib/model.js~Model.html#instance-method-destroy
+
+  const recipeToDestroy = await Recipe.findByPk(id);
+
+  return recipeToDestroy.destroy();
+
+  
+
+
+
 }
 
 async function createNewRecipe(title) {
@@ -114,6 +114,11 @@ async function createNewRecipe(title) {
   // return it.
   //
   // Docs: https://sequelize.org/v5/manual/instances.html#creating-persistent-instances
+
+
+  return await Recipe.create({
+    title: title
+  });
 }
 
 async function searchRecipes(term) {
@@ -121,6 +126,17 @@ async function searchRecipes(term) {
   // given term in its title
   //
   // Docs: https://sequelize.org/v5/manual/querying.html
+
+  return await Recipe.findAll({
+    where: {
+      title: {
+        [Op.substring]: term
+      }
+    }
+  })
+
+
+
 }
 
 
