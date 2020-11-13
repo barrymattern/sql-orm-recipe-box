@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     recipeId: DataTypes.INTEGER
   }, {});
   Ingredient.associate = function(models) {
-    // associations can be defined here
+    Ingredient.belongsTo(models.MeasurementUnit, { foreignKey: 'measurementUnitId' });
+    Ingredient.belongsTo(models.Recipe, { foreignKey: 'recipeId' });
   };
   return Ingredient;
 };
