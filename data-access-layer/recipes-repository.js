@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 let Recipe, Instruction, Ingredient, MeasurementUnit;
 let moduleError;
 
@@ -34,6 +35,11 @@ async function getTenNewestRecipes() {
   // });
   //
   // Docs: https://sequelize.org/master/class/lib/model.js~Model.html#static-method-findAll
+
+  return await Recipe.findAll({
+    order: [ [ 'updatedAt', 'DESC' ] ],
+    limit: 10
+  });
 }
 
 async function getRecipeById(id) {
@@ -54,6 +60,28 @@ async function getRecipeById(id) {
   //     }
   //   ]
   // });
+
+  // Recipe.findByPk(id, {
+  //   include: [
+  //     Instruction,
+  //     Ingredient,
+  //     {
+  //       model: MeasurementUnit,
+  //       include: Recipe
+  //     }
+  //   ]
+  // });
+
+  return await Recipe.findByPk(id, {
+    include: [
+      Instruction,
+      {
+        model: Ingredient,
+        include: MeasurementUnit
+      }
+    ]
+  });
+
   //
   // Look at the data model in the instructions to see the relations between the
   // Recipe table and the Ingredients and Instructions table. Figure out which
